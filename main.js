@@ -31,7 +31,7 @@ function translate() {
     var cur_x = 30;
     var cur_y = 40;
 
-    var text = document.getElementById("to-translate").value.toLowerCase();
+    var text = document.getElementById("to-translate").value.trim().toLowerCase();
     var svg = document.getElementById("svg-output");
     svg.innerHTML = "";
     svg.setAttribute("height", 100);
