@@ -2,4 +2,4 @@
 
 Bonjour. Ce truc sert à faire du sémaphore en bonshommes en lignes en SVG.
 
-Rendez-vous [ici]() pour l'utiliser ;D
+Rendez-vous [ici](https://rayerdyne.github.io/smphr-js.github.io/) pour l'utiliser ;D
