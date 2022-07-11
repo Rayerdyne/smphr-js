@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Super Semaphore</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="main.js"></script>
+    </head>
+    <body>
+        <h1 id="title">Super traducteur de sémaphore</h1>
+        <p>C'est super coool</p>
+        <div id="form">
+            <form>
+                <label for="to-translate"><p>Texte: </p></label>
+                <textarea id="to-translate" name="to-translate" rows="4" cols="50">
+                    Vive Akela
+                </textarea>
+                <br>
+            </form>
+            <button onclick="translate()"> Traduire </button>
+        </div>
+
+        <div id="output">
+            <p>Résultat: </p>
+            <div id="image">
+                <svg id="svg-output" height="300" width="300" xmlns="http://www.w3.org/2000/svg"> </svg>
+            </div>
+        </div>
+    </body>
+</html>
