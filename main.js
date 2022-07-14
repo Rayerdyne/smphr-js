@@ -1,6 +1,6 @@
 var svgNS = "http://www.w3.org/2000/svg";
 const zip = (a, b) => a.map((k, i) => [k, b[i]]);
-var params = {
+var default_params = {
     line_length: 600,
     line_spacing: 10,
     init_x: 30,
@@ -10,6 +10,7 @@ var params = {
     body_height: 30,
     nose_height: 20,
     head_size: 10,
+    head_thickness: 1,
     foot_gap: 10,
     legs_height: 20,
     arm_length: 30,
@@ -18,23 +19,8 @@ var params = {
     horizontal_spacing: 60
 };
 
-const default_params = {
-    line_length: 600,
-    line_spacing: 10,
-    init_x: 30,
-    init_y: 40,
-    neck_height: 10,
-    body_width: 10,
-    body_height: 30,
-    nose_height: 20,
-    head_size: 10,
-    foot_gap: 10,
-    legs_height: 20,
-    arm_length: 30,
-    flag_length: 8,
-    flag_contour_width: 1,
-    horizontal_spacing: 60
-};
+const params = {};
+Object.assign(params, default_params);
 
 alphabet_right_positions = [1, 2, 3, 4, 0, 0, 0, 1, 1,
                             4, 1, 1, 1, 1, 2, 2, 2, 2,
@@ -57,10 +43,18 @@ function translate() {
     var svg = document.getElementById("svg-output");
     svg.innerHTML = "";
 
-    const stickman_height = params.arm_length + params.body_height + params.legs_height;
+    const upper1 = -params.nose_height - params.head_size;
+    const upper2 = -params.neck_height - params.arm_length;
+    const upper = Math.min(upper1, upper2);
+    const lower1 = -params.neck_height + params.body_height + params.legs_height;
+    const lower2 = - params.neck_height + params.arm_length;
+    const lower3 = -params.nose_height + params.head_size;
+    const lower = Math.max(lower1, lower2, lower3);
+    const stickman_height = lower - upper;
     const letters_per_line = params.line_length * 1.0 / params.horizontal_spacing;
     svg.setAttribute("height", Math.ceil(text.length / letters_per_line) * (params.line_spacing + stickman_height));
     svg.setAttribute("width", 2 * cur_x + text.length * params.horizontal_spacing);
+
 
     for (var i = 0; i < text.length; i++) {
         c = text.charAt(i);
@@ -145,7 +139,7 @@ function createStickmanBase(x, y, params) {
                       "black", "black", 1);
     
     var head = createCircle(x, y - params.nose_height, params.head_size,
-                        "none", "black", 1);
+                        "none", "black", params.head_thickness);
     ylegs1 = y - params.neck_height + params.body_height;
     ylegs2 = ylegs1 + params.legs_height;
     var left_leg = createLine(x, ylegs1, x - params.foot_gap, ylegs2, "black", 1);
