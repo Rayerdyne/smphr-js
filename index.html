@@ -4,16 +4,25 @@
         <title>Super Semaphore</title>
         <meta charset="UTF-8">
         <script type="text/javascript" src="main.js"></script>
+        <script type="text/javascript" src="refresh.js"></script>
+        <style>
+            form>div {
+                margin-bottom: 10px;
+            }
+            form>div>label {
+                display: inline-block;
+                width: 200px;
+                text-align: left;
+            }
+        </style>
     </head>
     <body>
         <h1 id="title">Super traducteur de sémaphore</h1>
-        <p>C'est super coool</p>
+        <h4>C'est super coool</h4>
         <div id="form">
             <form>
                 <label for="to-translate"><p>Texte: </p></label>
-                <textarea id="to-translate" name="to-translate" rows="4" cols="50">
-                    Vive Akela
-                </textarea>
+                <textarea id="to-translate" name="to-translate" rows="4" cols="50">Vive Akela</textarea>
                 <br>
             </form>
             <button onclick="translate()"> Traduire </button>
@@ -22,8 +31,80 @@
         <div id="output">
             <p>Résultat: </p>
             <div id="image">
-                <svg id="svg-output" height="300" width="300" xmlns="http://www.w3.org/2000/svg"> </svg>
+                <svg id="svg-output" height="100" width="300" xmlns="http://www.w3.org/2000/svg"> </svg>
             </div>
         </div>
+
+        <div id="params">
+            <h4>Paramètres</h4>
+            <form>
+                <div>
+                    <label for="line-length">Maximum line length:</label>
+                    <input type="number" value="666" id="line-length" name="line-length" />
+                    <br />
+                </div> <div>
+                    <label for="line-spacing">Spacing between lines:</label>
+                    <input type="number" value="10" id="line-spacing" name="line-spacing" />
+                    <br />
+                </div> <div>
+                    <label for="horizontal-spacing">Horizontal spacing: </label>
+                    <input type="number" value="60" id="horizontal-spacing" name="horizontal-spacing" />
+                    <br />
+                </div> <div>
+                    <label for="init-x">Initial X: </label>
+                    <input type="number" value="30" id="init-x" name="init-x" />
+                    <br />
+                </div> <div>
+                    <label for="init-y">Initial Y: </label>
+                    <input type="number" value="40" id="init-y" name="init-y" />
+                    <br />
+                    <br />
+                </div> <div>
+                    <label for="neck-height">Neck height: </label>
+                    <input type="number" value="10" id="neck-height" name="neck-height" />
+                    <br />
+                </div> <div>
+                    <label for="body-height">Body height: </label>
+                    <input type="number" value="30" id="body-height" name="body-height" />
+                    <br />
+                </div> <div>
+                    <label for="body-width">Body width: </label>
+                    <input type="number" value="10" id="body-width" name="body-width" />
+                    <br />
+                </div> <div>
+                    <label for="nose-height">Nose height: </label>
+                    <input type="number" value="20" id="nose-height" name="nose-height" />
+                    <br />
+                </div> <div>
+                    <label for="head-size">head size: </label>
+                    <input type="number" value="10" id="head-size" name="head-size" />
+                    <br />
+                    <br />
+                </div> <div>
+                    <label for="foot-gap">Foot gap: </label>
+                    <input type="number" value="10" id="foot-gap" name="foot-gap" />
+                    <br />
+                </div> <div>
+                    <label for="legs-height">Legs height: </label>
+                    <input type="number" value="20" id="legs-height" name="legs-height" />
+                    <br />
+                </div> <div>
+                    <label for="arm-length">Arlm length: </label>
+                    <input type="number" value="30" id="arm-length" name="arm-length" />
+                    <br />
+                    <br />
+                </div> <div>
+                    <label for="flag-length">Flag length: </label>
+                    <input type="number" value="8" id="flag-length" name="flag-length" />
+                    <br />
+                </div> <div>
+                    <label for="flag-contour-width">Flag contour width: </label>
+                    <input type="number" value="1" id="flag-contour-width" name="flag-contour-width" />
+                    <br />
+                </div>
+            </form>
+            <button id="validate-params" onclick="refresh_params()">Appliquer</button>
+            <button id="reinit-params" onclick="reinit_params()">Réinitialiser</button>
+       </div>
     </body>
 </html>

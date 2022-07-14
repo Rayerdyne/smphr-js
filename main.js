@@ -1,6 +1,28 @@
 var svgNS = "http://www.w3.org/2000/svg";
 const zip = (a, b) => a.map((k, i) => [k, b[i]]);
-const params = {
+var params = {
+    line_length: 600,
+    line_spacing: 10,
+    init_x: 30,
+    init_y: 40,
+    neck_height: 10,
+    body_width: 10,
+    body_height: 30,
+    nose_height: 20,
+    head_size: 10,
+    foot_gap: 10,
+    legs_height: 20,
+    arm_length: 30,
+    flag_length: 8,
+    flag_contour_width: 1,
+    horizontal_spacing: 60
+};
+
+const default_params = {
+    line_length: 600,
+    line_spacing: 10,
+    init_x: 30,
+    init_y: 40,
     neck_height: 10,
     body_width: 10,
     body_height: 30,
@@ -28,13 +50,16 @@ flag_pos_xx = [-f, -1, -f,  0, -f, -1, -f];
 flag_pos_yy = [ f,  0, -f, -1,  f,  0, -f];
 
 function translate() {
-    var cur_x = 30;
-    var cur_y = 40;
+    var cur_x = params.init_x;
+    var cur_y = params.init_y;
 
     var text = document.getElementById("to-translate").value.trim().toLowerCase();
     var svg = document.getElementById("svg-output");
     svg.innerHTML = "";
-    svg.setAttribute("height", 100);
+
+    const stickman_height = params.arm_length + params.body_height + params.legs_height;
+    const letters_per_line = params.line_length * 1.0 / params.horizontal_spacing;
+    svg.setAttribute("height", Math.ceil(text.length / letters_per_line) * (params.line_spacing + stickman_height));
     svg.setAttribute("width", 2 * cur_x + text.length * params.horizontal_spacing);
 
     for (var i = 0; i < text.length; i++) {
@@ -45,6 +70,11 @@ function translate() {
             svg.appendChild(stickman);
         } else if ((/[ \t\n]/).test(c)) {
             cur_x += params.horizontal_spacing;
+        }
+
+        if (cur_x > params.line_length) {
+            cur_x = params.init_x;
+            cur_y += params.line_spacing + stickman_height;
         }
     }
 
@@ -161,4 +191,26 @@ function createNode(tag, attr) {
     }
 
     return node;
+}
+
+
+function refresh_params() {
+    for (const key in params) {
+        const id = key.replace('_', '-');
+        const elm = document.getElementById(id);
+        if (elm) {
+            if (params[key] !== Number(elm.value)) {
+                params[key] = Number(elm.value);
+                console.log("Changed " + id + " to " + params[key]);
+            }
+        }
+    }
+}
+
+function reinit_params() {
+    for (const key in params) {
+        params[key] = default_params[key];
+        const id = key.replace('_', '-');
+        document.getElementById(id).value = default_params[key];
+    }
 }
